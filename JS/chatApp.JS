@@ -42,7 +42,7 @@ function mostrarError(mensaje) {
     setTimeout(() => errorContainer.textContent = '', 10000); 
 }
 function send(mensaje) {
-    const username ='User';
+    const username ='Rodri';
     console.log("Enviar: ", mensaje);
     enviarMensaje(username, mensaje);
 }
@@ -109,5 +109,5 @@ function mostrarMensajeEnPantalla(mensaje) {
     messageDiv.textContent = `${mensaje.username}: ${mensaje.message}`;
     chatContainer.appendChild(messageDiv);
 
-    chatContainer.scrollTop = chat;
+    chatContainer.scrollTop = chatContainer.scrollHeight;
 }
