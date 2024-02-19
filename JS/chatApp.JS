@@ -82,7 +82,7 @@ async function enviarMensaje(username, mensaje) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, mensaje })
+            body: JSON.stringify({ username, message: mensaje }) // Asegúrate de que las claves coincidan con lo que espera el servidor
         });
 
         if (!response.ok) {
@@ -90,24 +90,24 @@ async function enviarMensaje(username, mensaje) {
             throw new Error('Network response was not ok: ' + response.statusText);
         }
         
-        const data = await response.json();
-        console.log('Mensaje enviado:', data);
+        const messageData = await response.json();
+        console.log('Mensaje enviado y recibido del servidor:', messageData);
         
-        mostrarMensaje(username, mensaje);
+        // Si el servidor responde con el mensaje en el formato esperado, actualiza la UI
+        if (messageData && messageData.id) {
+            mostrarMensajeEnPantalla(messageData);
+        }
     } catch (error) {
         console.error('Error al enviar el mensaje:', error);
         mostrarError('Error al enviar el mensaje: ' + error.message);
     }
 }
 
-enviarMensaje(username,mensaje);
-
-function mostrarMensaje(username, mensaje) {
+function mostrarMensajeEnPantalla(mensaje) {
     const chatContainer = document.getElementById('containerChat');
-    const messageSDiv = document.createElement('div');
-    messageSDiv.textContent = `${username}: ${mensaje}`;
-    chatContainer.appendChild(messageSDiv);
+    const messageDiv = document.createElement('div');
+    messageDiv.textContent = `${mensaje.username}: ${mensaje.message}`;
+    chatContainer.appendChild(messageDiv);
 
-    // Desplazar el contenedor de chat para mostrar el último mensaje
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
