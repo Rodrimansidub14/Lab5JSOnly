@@ -1,6 +1,6 @@
 function initChat() {
     const chatContainer = document.createElement("div");
-    chatContainer.id = 'container';
+    chatContainer.id = 'containerChat';
     chatContainer.style.width = '100%';
     chatContainer.style.height = '100%';
     chatContainer.style.overflowY = 'auto';
@@ -34,63 +34,56 @@ function send(mensaje) {
 
 document.addEventListener('DOMContentLoaded', initChat);
 
-function recibirMensaje() {
-    fetch('https://chat.arpanetos.lol/messages')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(messages => {
-          // Assuming 'messages' is an array of message objects
-          const chatContainer = document.getElementById('container');
-          chatContainer.innerHTML = ''; // Clear previous messages
-
-          messages.forEach((msg) => {
-              const messageDiv = document.createElement('div');
-              messageDiv.textContent = `${msg.username}: ${msg.message}`;
-              chatContainer.appendChild(messageDiv);
-          });
-
-          // Scroll to the bottom of the chat container to show the latest messages
-          chatContainer.scrollTop = chatContainer.scrollHeight;
-        })
-        .catch(error => {
-            console.error('Error fetching messages:', error);
-        });
-}
-
-
-recibirMensaje();
-
-setInterval(recibirMensaje, 5000);
-
-function enviarMensaje(username, mensaje) {
-    fetch('https://chat.arpanetos.lol/messages', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, mensaje })
-    })
-    .then(respuesta => {
-        if (!respuesta.ok) {
-            throw new Error('Network response was not ok: ' + respuesta.statusText);
+async function recibirMensaje() {
+    try {
+        const response = await fetch('https://chat.arpanetos.lol/messages');
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
         }
-        return respuesta.json();
-    })
-    .then(data => {
-        console.log('Mensaje enviado:', data);
-        mostrarMensaje(username, mensaje); // Mostrar mensaje en la interfaz de usuario
-    })
-    .catch(error => {
-        console.error('Error al enviar el mensaje:', error);
-    });
+        const messages = await response.json();
+
+        const chatContainer = document.getElementById('containerChat');
+        chatContainer.innerHTML = ''; // Clear previous messages
+
+        messages.forEach((msg) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = `${msg.username}: ${msg.message}`;
+            chatContainer.appendChild(messageDiv);
+        });
+
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    } catch (error) {
+        console.error('Error fetching messages:', error);
+    }
 }
+
+async function enviarMensaje(username, mensaje) {
+    try {
+        const response = await fetch('https://chat.arpanetos.lol/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, mensaje })
+        });
+
+        if (!response.ok) {
+            console.log('Response not OK:', response);
+            throw new Error('Network response was not ok: ' + response.statusText);
+        }
+        
+        const data = await response.json();
+        console.log('Mensaje enviado:', data);
+        
+        mostrarMensaje(username, mensaje);
+    } catch (error) {
+        console.error('Error al enviar el mensaje:', error);
+    }
+}
+
 
 function mostrarMensaje(username, mensaje) {
-    const chatContainer = document.getElementById('container');
+    const chatContainer = document.getElementById('containerChat');
     const messageSDiv = document.createElement('div');
     messageSDiv.textContent = `${username}: ${mensaje}`;
     chatContainer.appendChild(messageSDiv);
