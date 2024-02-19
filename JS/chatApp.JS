@@ -6,6 +6,7 @@ function initChat() {
     chatContainer.style.overflowY = 'auto';
     document.body.appendChild(chatContainer);
 
+    
 
 
     const input = document.createElement("input");
@@ -17,6 +18,15 @@ function initChat() {
     input.style.bottom = '0';
     document.body.appendChild(input);
 
+    const errorContainer = document.createElement("div");
+    errorContainer.id = 'errorContainer';
+    errorContainer.style.color = 'red';
+    errorContainer.style.position = 'fixed';
+    errorContainer.style.bottom = '30px'; // Ajusta esto según necesites
+    errorContainer.style.left = '0';
+    errorContainer.style.right = '0';
+    errorContainer.style.textAlign = 'center';
+    document.body.appendChild(errorContainer);
 
     input.addEventListener('keypress', function (e) {
         if (e.key == 'Enter') {
@@ -25,7 +35,12 @@ function initChat() {
         }
     });
 }
-
+function mostrarError(mensaje) {
+    const errorContainer = document.getElementById('errorContainer');
+    errorContainer.textContent = mensaje; 
+    
+    setTimeout(() => errorContainer.textContent = '', 10000); 
+}
 function send(mensaje) {
     const username ='User';
     console.log("Enviar: ", mensaje);
@@ -51,11 +66,14 @@ async function recibirMensaje() {
             chatContainer.appendChild(messageDiv);
         });
 
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+        chatContainer.scrollTop = chat
     } catch (error) {
         console.error('Error fetching messages:', error);
+        mostrarError('Error fetching messages: ' + error.message);
     }
 }
+
+recibirMensaje();
 
 async function enviarMensaje(username, mensaje) {
     try {
@@ -78,9 +96,11 @@ async function enviarMensaje(username, mensaje) {
         mostrarMensaje(username, mensaje);
     } catch (error) {
         console.error('Error al enviar el mensaje:', error);
+        mostrarError('Error al enviar el mensaje: ' + error.message);
     }
 }
 
+enviarMensaje(username,mensaje);
 
 function mostrarMensaje(username, mensaje) {
     const chatContainer = document.getElementById('containerChat');
