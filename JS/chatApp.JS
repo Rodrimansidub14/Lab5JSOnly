@@ -109,5 +109,5 @@ function mostrarMensajeEnPantalla(mensaje) {
     messageDiv.textContent = `${mensaje.username}: ${mensaje.message}`;
     chatContainer.appendChild(messageDiv);
 
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+    chatContainer.scrollTop = chat;
 }
