@@ -38,13 +38,13 @@ function initChat() {
     sendButton.style.color = 'white';
     sendButton.style.transition = 'background-color 0.3s';
     sendButton.addEventListener('mouseover', function() {
-        this.style.backgroundColor = '#66bb6a'; // Color más claro al pasar el cursor
+        this.style.backgroundColor = '#66bb6a'; 
     });
     sendButton.addEventListener('mouseout', function() {
-        this.style.backgroundColor = '#4CAF50'; // Color original al retirar el cursor
+        this.style.backgroundColor = '#4CAF50'; 
     });
 
-    // Flex Container for Input and Button
+    
     const flexContainer = document.createElement("div");
     flexContainer.style.display = 'flex';
     flexContainer.style.position = 'fixed';
@@ -54,13 +54,13 @@ function initChat() {
     flexContainer.style.padding = '20px';
     flexContainer.style.boxSizing = 'border-box';
     flexContainer.style.padding = '20px';
-    flexContainer.style.boxSizing = 'border-box'; // Include padding in width calculation
+    flexContainer.style.boxSizing = 'border-box'; 
 
-    // Append Input and Button to Flex Container
+    
     flexContainer.appendChild(input);
     flexContainer.appendChild(sendButton);
 
-    // Append Flex Container to Body
+    
     document.body.appendChild(flexContainer);
 
     const errorContainer = document.createElement("div");
@@ -68,7 +68,7 @@ function initChat() {
     errorContainer.style.color = 'red';
     errorContainer.style.position = 'fixed';
     errorContainer.style.fontFamily = 'Arial';
-    errorContainer.style.bottom = '70px'; // Ajusta esto según necesites
+    errorContainer.style.bottom = '70px'; 
     errorContainer.style.left = '0';
     errorContainer.style.fontStyle = 'normal';
     errorContainer.style.right = '0';
@@ -82,10 +82,10 @@ function initChat() {
         input.value = '';
     });
     sendButton.addEventListener('mousedown', function() {
-        this.style.backgroundColor = '#357a38'; // Color más oscuro al hacer clic
+        this.style.backgroundColor = '#357a38'; 
     });
     sendButton.addEventListener('mouseup', function() {
-        this.style.backgroundColor = '#4CAF50'; // Vuelve al color original al soltar el clic
+        this.style.backgroundColor = '#4CAF50';
     });
     messageInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter' && messageInput.value.trim() !== '') {
@@ -97,7 +97,7 @@ function initChat() {
     function startMessageRefresh() {
         setInterval(() => {
             recibirMensaje();
-        }, 10000); // refresh every 5 seconds
+        }, 10000); 
     }
     startMessageRefresh();
 
@@ -108,7 +108,7 @@ function initChat() {
     `;
     document.body.insertBefore(themeToggle, chatContainer);
 
-    // Evento para cambiar el tema al hacer clic en el interruptor
+    
     const themeToggleInput = document.getElementById('theme-toggle');
     themeToggle.style.fontFamily = "Arial, sans-serif";
     themeToggleInput.addEventListener('change', function() {
@@ -143,12 +143,12 @@ function send(mensaje) {
     const username ='Rodri';
     console.log("Enviar: ", mensaje);
     enviarMensaje(username, mensaje);
-    mostrarMensajeEnPantalla({ username: 'You', message: mensaje }); // Asegúrate de que esta es la manera correcta de llamar a mostrarMensajeEnPantalla
+    mostrarMensajeEnPantalla({ username: 'You', message: mensaje }); 
 }
 
 document.addEventListener('DOMContentLoaded', initChat);
 
-let lastMessageId = 0; // Asume que los mensajes tienen un ID y están ordenados
+let lastMessageId = 0; 
 
 async function recibirMensaje() {
     try {
@@ -159,19 +159,19 @@ async function recibirMensaje() {
         const messages = await response.json();
         const chatContainer = document.getElementById('chatContainer');
         
-        // No borres los mensajes existentes: chatContainer.innerHTML = '';
+        
 
         let isAtBottom = chatContainer.scrollTop + chatContainer.clientHeight === chatContainer.scrollHeight;
 
         messages.forEach((msg) => {
-            // Solo añade mensajes si son más nuevos que el último mensaje recibido
+           
             if (msg.id > lastMessageId) {
                 mostrarMensajeEnPantalla(msg);
-                lastMessageId = msg.id; // Actualiza el ID del último mensaje
+                lastMessageId = msg.id; 
             }
         });
 
-        // Si el usuario estaba al fondo del chat, mantiene el scroll al fondo
+        
         if (isAtBottom) {
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
@@ -189,7 +189,7 @@ async function enviarMensaje(username, mensaje) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, message: mensaje }) // Asegúrate de que las claves coincidan con lo que espera el servidor
+            body: JSON.stringify({ username, message: mensaje }) 
         });
 
         if (!response.ok) {
@@ -200,10 +200,10 @@ async function enviarMensaje(username, mensaje) {
         const messageData = await response.json();
         console.log('Mensaje enviado y recibido del servidor:', messageData);
         
-        // Si el servidor responde con el mensaje en el formato esperado, actualiza la UI
+
         if (messageData && messageData.id) {
             mostrarMensajeEnPantalla({
-                username: username, // o 'You' si quieres que muestre "Tú" en el chat
+                username: username, 
                 message: mensaje
             });
         }
@@ -216,30 +216,51 @@ async function enviarMensaje(username, mensaje) {
 function mostrarMensajeEnPantalla({ username, message }) {
     const chatContainer = document.getElementById('chatContainer');
     const messageDiv = document.createElement('div');
-    if (username === 'You') {
-        messageDiv.className = 'message-you';
-        messageDiv.style.textAlign = 'right'; // Alinea el texto a la izquierda
-        messageDiv.style.backgroundColor = '#e0e0e0'; // Un color de fondo diferente para resaltar
-    } else {
-        messageDiv.className = 'message-other';
-        messageDiv.style.textAlign = 'left'; // Alinea el texto a la derecha para otros usuarios
-    }
 
-
-
-    messageDiv.textContent = `${username}: `; // Set the username text content
     
-    // Define the regex pattern to match image URLs
-    const urlRegex = /(https?:\/\/\S*\.(jpg|jpeg|png|gif))/g;
-    let displayText = message; // We'll use this to keep track of text to display
+     
+     messageDiv.style.padding = '10px 10px';
+     messageDiv.style.borderRadius = '15px';
+     messageDiv.style.margin = '15px';
+     messageDiv.style.display = 'flex';
+     messageDiv.style.flexDirection = 'column';
+     messageDiv.style.maxWidth = '15%';
+ 
+    
+     if (username === 'You') {
+         messageDiv.className = 'message-you';
+         messageDiv.style.backgroundColor = '#4CAF50'; 
+         messageDiv.style.color = 'white'; 
+         messageDiv.style.alignSelf = 'flex-end';
+         messageDiv.style.marginLeft = 'auto'; 
+     } 
+     
+     else {
+         messageDiv.className = 'message-other';
+         messageDiv.style.backgroundColor = '#f0f0f0'; 
+         messageDiv.style.color = 'black'; 
+         messageDiv.style.alignSelf = 'flex-start'; 
+     }
+     
+     const textContent = document.createElement('span');
+     textContent.textContent = message;
+     messageDiv.appendChild(textContent);
 
-    // Use regex to find image URLs in the message
+
+
+    messageDiv.textContent = `${username}: `; 
+    
+    
+    const urlRegex = /(https?:\/\/\S*\.(jpg|jpeg|png|gif))/g;
+    let displayText = message; 
+
+    
     const urls = message.match(urlRegex);
     if (urls && urls.length > 0) {
-        // Replace the URLs with an empty string in the display text
+        
         displayText = displayText.replace(urlRegex, '');
         
-        // Create an image element for each URL found
+ 
         urls.forEach(url => {
             const img = document.createElement('img');
             img.src = url;
@@ -247,11 +268,11 @@ function mostrarMensajeEnPantalla({ username, message }) {
             img.onload = () => {
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             };
-            messageDiv.appendChild(img); // Append the image to the message div
+            messageDiv.appendChild(img); 
         });
     }
     
-    // If there's any text left after removing URLs, add it to the message div
+   
     if (displayText.trim()) {
         messageDiv.appendChild(document.createTextNode(displayText));
     }
@@ -267,25 +288,25 @@ function applyTheme(theme) {
     const sendButton = document.getElementById('sendButton');
     const isDark = theme === 'dark';
 
-    // Establecer estilos para el cuerpo del documento
+   
     body.style.backgroundColor = isDark ? '#121212' : '#FFF';
     body.style.color = isDark ? '#E0E0E0' : '#333';
 
-    // Establecer estilos para el contenedor del chat
+ 
     chatContainer.style.backgroundColor = isDark ? '#1E1E1E' : '#FFF';
     chatContainer.style.color = isDark ? '#E0E0E0' : '#333';
 
-    // Establecer estilos para la caja de texto
+   
     input.style.backgroundColor = isDark ? '#333' : '#FFF';
     input.style.color = isDark ? '#E0E0E0' : '#333';
     input.style.borderColor = isDark ? '#666' : '#CCC';
 
-    // Establecer estilos para el botón de enviar
+    
     sendButton.style.backgroundColor = isDark ? '#4CAF50' : '#F0F0F0';
     sendButton.style.color = isDark ? '#E0E0E0' : '#333';
     sendButton.style.borderColor = isDark ? '#4CAF50' : '#CCC';
 
-    // Guardar la selección del tema en localStorage
+    
     localStorage.setItem('theme', theme);
 }
 
