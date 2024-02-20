@@ -12,7 +12,8 @@ function initChat() {
     chatContainer.style.backgroundColor = '#f9f9f9';
     document.body.appendChild(chatContainer);
 
-    
+   
+
     const input = document.createElement("input");
     input.type = 'text';
     input.id = 'messageInput';
@@ -38,13 +39,15 @@ function initChat() {
 
     // Flex Container for Input and Button
     const flexContainer = document.createElement("div");
-    flexContainer.style.display = 'flex'; // Enable flexbox
+    flexContainer.style.display = 'flex';
+    flexContainer.style.justifyContent = 'space-around';
+    flexContainer.style.alignItems = 'center';
     flexContainer.style.position = 'fixed';
     flexContainer.style.bottom = '0';
-    flexContainer.style.left = '20%';
-    flexContainer.style.width = '60%';
-    flexContainer.style.padding = '20px';
-    flexContainer.style.boxSizing = 'border-box'; // Include padding in width calculation
+    flexContainer.style.left = '0';
+    flexContainer.style.width = '100%';
+    flexContainer.style.padding = '15px';
+    flexContainer.style.boxSizing = 'border-box';
 
     // Append Input and Button to Flex Container
     flexContainer.appendChild(input);
@@ -65,6 +68,33 @@ function initChat() {
     errorContainer.style.fontStyle=
     document.body.appendChild(errorContainer);
 
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = `
+        @media (max-width: 600px) {
+            #chatContainer {
+                height: 75vh; /* Menor altura en dispositivos móviles */
+            }
+
+            #messageInput, #sendButton {
+                flex: 1; /* Los elementos flexibles ocupan todo el espacio disponible */
+            }
+
+            #sendButton {
+                width: auto; /* El ancho se ajusta al contenido */
+                padding: 10px; /* Menos padding en dispositivos móviles */
+            }
+        }
+
+        @media (min-width: 601px) {
+            #flexContainer {
+                width: 80%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    `;
+    document.head.appendChild(styleSheet);
+
     
     input.addEventListener('keypress', function (e) {
         if (e.key == 'Enter') {
@@ -82,6 +112,10 @@ function initChat() {
             messageInput.value = ''; 
         }
     });
+
+
+    document.addEventListener('DOMContentLoaded', initChat);
+
 }
 
 
