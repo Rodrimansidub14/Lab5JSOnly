@@ -8,7 +8,7 @@ function initChat() {
     chatContainer.style.overflowY = 'auto';
     chatContainer.style.borderRadius = '5px';
     chatContainer.style.border = '1px solid #e0e0e0';
-    chatContainer.style.fontFamily = 'Roboto, Arial, sans-serif';
+    chatContainer.style.fontFamily = ' Arial, sans-serif';
     chatContainer.style.padding = '10px';
     chatContainer.style.backgroundColor = '#fff';
     document.body.appendChild(chatContainer);
