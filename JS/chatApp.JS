@@ -72,7 +72,7 @@ function initChat() {
     styleSheet.textContent = `
         @media (max-width: 600px) {
             #chatContainer {
-                height: 75vh; /* Menor altura en dispositivos móviles */
+                height: 60vh; /* Menor altura en dispositivos móviles */
             }
 
             #messageInput, #sendButton {
