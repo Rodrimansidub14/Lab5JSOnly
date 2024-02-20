@@ -29,10 +29,10 @@ function initChat() {
     const sendButton = document.createElement("button");
     sendButton.textContent = 'Send';
     sendButton.id = 'sendButton';
-    sendButton.style.padding = '10px 20px';
+    sendButton.style.padding = '15px 20px';
     sendButton.style.fontFamily = 'Arial';
     sendButton.style.cursor = 'pointer';
-    sendButton.style.borderRadius = '5px';
+    sendButton.style.borderRadius = '15px';
     sendButton.style.border = 'none';
     sendButton.style.backgroundColor = '#4CAF50';
     sendButton.style.color = 'white';
@@ -44,8 +44,8 @@ function initChat() {
     flexContainer.style.alignItems = 'center';
     flexContainer.style.position = 'fixed';
     flexContainer.style.bottom = '0';
-    flexContainer.style.left = '0';
-    flexContainer.style.width = '100%';
+    flexContainer.style.left = '140px';
+    flexContainer.style.width = '80%';
     flexContainer.style.padding = '15px';
     flexContainer.style.boxSizing = 'border-box';
 
@@ -67,33 +67,6 @@ function initChat() {
     errorContainer.style.textAlign = 'center';
     errorContainer.style.fontStyle=
     document.body.appendChild(errorContainer);
-
-    const styleSheet = document.createElement("style");
-    styleSheet.textContent = `
-        @media (max-width: 600px) {
-            #chatContainer {
-                height: 60vh; /* Menor altura en dispositivos móviles */
-            }
-
-            #messageInput, #sendButton {
-                flex: 1; /* Los elementos flexibles ocupan todo el espacio disponible */
-            }
-
-            #sendButton {
-                width: auto; /* El ancho se ajusta al contenido */
-                padding: 10px; /* Menos padding en dispositivos móviles */
-            }
-        }
-
-        @media (min-width: 601px) {
-            #flexContainer {
-                width: 80%;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-    `;
-    document.head.appendChild(styleSheet);
 
     
     input.addEventListener('keypress', function (e) {
@@ -117,8 +90,30 @@ function initChat() {
     document.addEventListener('DOMContentLoaded', initChat);
 
 }
+function applyResponsiveStyles() {
+    const chatContainer = document.getElementById('chatContainer');
+    const flexContainer = document.getElementById('flexContainer');
+    const sendButton = document.getElementById('sendButton');
 
+    // Obtener el ancho del viewport
+    const viewportWidth = window.innerWidth;
 
+    // Aplicar estilos dependiendo del ancho del viewport
+    if (viewportWidth <= 600) {
+        // Estilos para dispositivos móviles
+        chatContainer.style.height = '75vh';
+        sendButton.style.padding = '10px';
+        // ... otros estilos para móviles ...
+    } else {
+        // Estilos para tabletas y escritorios
+        flexContainer.style.width = '80%';
+        flexContainer.style.marginLeft = 'auto';
+        flexContainer.style.marginRight = 'auto';
+        // ... otros estilos para tabletas y escritorio ...
+    }
+}
+window.addEventListener('DOMContentLoaded', applyResponsiveStyles);
+window.addEventListener('resize', applyResponsiveStyles);
 function mostrarError(mensaje) {
     const errorContainer = document.getElementById('errorContainer');
     errorContainer.textContent = mensaje; 
