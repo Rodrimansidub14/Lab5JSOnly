@@ -1,40 +1,90 @@
 function initChat() {
     const chatContainer = document.createElement("div");
-    chatContainer.id = 'containerChat';
-    chatContainer.style.width = '100%';
-    chatContainer.style.height = '100%';
+    chatContainer.id = 'chatContainer';
+    chatContainer.style.width = '95%%';
+    chatContainer.style.height = '80vh';
+    chatContainer.style.margin = '15px';
     chatContainer.style.overflowY = 'auto';
+    chatContainer.style.borderRadius = '5px';
+    chatContainer.style.border = '1px solid #DAD6D6';
+    chatContainer.style.fontFamily = 'Arial';
+    chatContainer.style.padding = '10px';
+    chatContainer.style.backgroundColor = '#f9f9f9';
     document.body.appendChild(chatContainer);
 
     
-
-
     const input = document.createElement("input");
     input.type = 'text';
-    input.id = 'input';
-    input.style.position = 'fixed';
-    input.style.width = '100%';
+    input.id = 'messageInput';
+    input.style.flexGrow = '1'; 
     input.maxLength = 140;
-    input.style.bottom = '0';
-    document.body.appendChild(input);
+    input.style.border = '2px solid #DAD6D6';
+    input.style.borderRadius = '15px';
+    input.style.fontFamily = 'Arial';
+    input.style.padding = '15px';
+    input.style.marginRight = '10px'; 
+
+    // Send Button
+    const sendButton = document.createElement("button");
+    sendButton.textContent = 'Send';
+    sendButton.id = 'sendButton';
+    sendButton.style.padding = '10px 20px';
+    sendButton.style.fontFamily = 'Arial';
+    sendButton.style.cursor = 'pointer';
+    sendButton.style.borderRadius = '5px';
+    sendButton.style.border = 'none';
+    sendButton.style.backgroundColor = '#4CAF50';
+    sendButton.style.color = 'white';
+
+    // Flex Container for Input and Button
+    const flexContainer = document.createElement("div");
+    flexContainer.style.display = 'flex'; // Enable flexbox
+    flexContainer.style.position = 'fixed';
+    flexContainer.style.bottom = '0';
+    flexContainer.style.left = '20%';
+    flexContainer.style.width = '60%';
+    flexContainer.style.padding = '20px';
+    flexContainer.style.boxSizing = 'border-box'; // Include padding in width calculation
+
+    // Append Input and Button to Flex Container
+    flexContainer.appendChild(input);
+    flexContainer.appendChild(sendButton);
+
+    // Append Flex Container to Body
+    document.body.appendChild(flexContainer);
 
     const errorContainer = document.createElement("div");
     errorContainer.id = 'errorContainer';
     errorContainer.style.color = 'red';
     errorContainer.style.position = 'fixed';
-    errorContainer.style.bottom = '30px'; // Ajusta esto según necesites
+    errorContainer.style.fontFamily = 'Arial';
+    errorContainer.style.bottom = '70px'; // Ajusta esto según necesites
     errorContainer.style.left = '0';
     errorContainer.style.right = '0';
     errorContainer.style.textAlign = 'center';
+    errorContainer.style.fontStyle=
     document.body.appendChild(errorContainer);
 
+    
     input.addEventListener('keypress', function (e) {
         if (e.key == 'Enter') {
             send(input.value);
             input.value = ''
         }
     });
+    sendButton.addEventListener('click', function() {
+        enviarMensaje(input.value); // Use the correct function name here
+        input.value = '';
+    });
+    messageInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter' && messageInput.value.trim() !== '') {
+            sendMessage(messageInput.value);
+            messageInput.value = ''; 
+        }
+    });
 }
+
+
 function mostrarError(mensaje) {
     const errorContainer = document.getElementById('errorContainer');
     errorContainer.textContent = mensaje; 
@@ -45,6 +95,7 @@ function send(mensaje) {
     const username ='Rodri';
     console.log("Enviar: ", mensaje);
     enviarMensaje(username, mensaje);
+    mostrarMensajeEnPantalla({ username: 'You', message: message });
 }
 
 document.addEventListener('DOMContentLoaded', initChat);
@@ -103,11 +154,15 @@ async function enviarMensaje(username, mensaje) {
     }
 }
 
-function mostrarMensajeEnPantalla(mensaje) {
-    const chatContainer = document.getElementById('containerChat');
+function mostrarMensajeEnPantalla({username, message}) {
+    const chatContainer = document.getElementById('chatContainer');
     const messageDiv = document.createElement('div');
-    messageDiv.textContent = `${mensaje.username}: ${mensaje.message}`;
+    messageDiv.textContent = `${username}: ${message}`;
+    messageDiv.style.padding = '5px';
+    messageDiv.style.borderBottom = '1px solid #ddd';
     chatContainer.appendChild(messageDiv);
 
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
+
+document.addEventListener('DOMContentLoaded', initChat);
