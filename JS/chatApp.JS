@@ -315,31 +315,24 @@ function toggleTheme() {
     const currentTheme = localStorage.getItem('theme');
     applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
 }
-function adjustStylesForDevice() {
+function adjustChatInterface() {
     const chatContainer = document.getElementById('chatContainer');
-    const inputContainer = document.getElementById('input-container'); 
-    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    
- 
-    if (width <= '1500px') {
-        chatContainer.style.width = '90%';
-        chatContainer.style.margin = '0';
-        chatContainer.style.marginLeft = '5vh';
-        chatContainer.style.marginRight = '10vh';
-        inputContainer.style.width = '100%';
-        inputContainer.style.left = '0';
-        inputContainer.style.padding = '5px';
-    } else { 
-        chatContainer.style.width = '170vh';
-        chatContainer.style.margin = '5px';
-        chatContainer.style.marginLeft = '17vh';
-        chatContainer.style.marginRight = '0vh';
-        inputContainer.style.width = 'calc(100% - 10px)'; 
-        inputContainer.style.left = '5%';
-        inputContainer.style.padding = '20px';
-    }
+    const input = document.getElementById('messageInput');
+    const sendButton = document.getElementById('sendButton');
+    const flexContainer = document.getElementById('flex-container'); // Asegúrate de asignar este id al contenedor flex
+
+    // Ajustar estilos para dispositivos móviles
+    const viewportHeight = window.innerHeight;
+    chatContainer.style.height = `${viewportHeight - 60}px`; // 60px podría ser la altura de tu input y botón
+    chatContainer.style.marginBottom = '60px'; // Asegurar espacio para la caja de entrada
+
+    flexContainer.style.width = '100%';
+    flexContainer.style.paddingBottom = 'env(safe-area-inset-bottom)'; // Considerar la safe area en dispositivos con notch
+
+    input.style.width = 'calc(100% - 100px)'; // 100px podría ser el ancho del botón enviar
+    sendButton.style.width = '80px'; // Ajustar el ancho del botón enviar según sea necesario
 }
 
-
-window.addEventListener('resize', adjustStylesForDevice);
-document.addEventListener('DOMContentLoaded', adjustStylesForDevice);
+// Llama a esta función al cargar la página y cuando se cambie el tamaño de la ventana
+window.addEventListener('resize', adjustChatInterface);
+document.addEventListener('DOMContentLoaded', adjustChatInterface);
