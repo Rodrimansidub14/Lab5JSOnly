@@ -1,7 +1,7 @@
 function initChat() {
     const chatContainer = document.createElement("div");
     chatContainer.id = 'chatContainer';
-    chatContainer.style.width = '50vh';
+    chatContainer.style.width = '150vh';
     chatContainer.style.height = '80vh';
     chatContainer.style.boxShadow = '0 10px 8px rgba(0, 0, 0, 0.1)';
     chatContainer.style.margin = '5px';
