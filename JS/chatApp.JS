@@ -328,7 +328,7 @@ function adjustStylesForDevice() {
         chatContainer.style.marginRight = '0vh';
         inputContainer.style.width = '100%';
         inputContainer.style.left = '0';
-        inputContainer.style.padding = '10px';
+        inputContainer.style.padding = '5px';
     } else { 
         chatContainer.style.width = '170vh';
         chatContainer.style.margin = '5px';
