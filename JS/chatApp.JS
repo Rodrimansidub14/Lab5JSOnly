@@ -318,25 +318,27 @@ function toggleTheme() {
 }
 function adjustStylesForDevice() {
     const chatContainer = document.getElementById('chatContainer');
-    const inputContainer = document.getElementById('input-container'); // Asegúrate de asignar este id al flexContainer para los inputs
+    const inputContainer = document.getElementById('input-container'); 
     const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     
-    // Ajustar estilos para dispositivos móviles
-    if (width <= '768px') { // 768px es un punto de ruptura común para dispositivos móviles
+ 
+    if (width <= '768px') {
         chatContainer.style.width = '100%';
         chatContainer.style.margin = '0';
         inputContainer.style.width = '100%';
         inputContainer.style.left = '0';
         inputContainer.style.padding = '10px';
-    } else { // Estilos para dispositivos de escritorio
-        chatContainer.style.width = '95%';
+    } else { 
+        chatContainer.style.width = '170vh';
         chatContainer.style.margin = '5px';
-        inputContainer.style.width = 'calc(100% - 10px)'; // Ajustar al padding
+        chatContainer.style.marginLeft = '10vh';
+        chatContainer.style.marginRight = '0vh';
+        inputContainer.style.width = 'calc(100% - 10px)'; 
         inputContainer.style.left = '5%';
         inputContainer.style.padding = '20px';
     }
 }
 
-// Llama a esta función cuando se cargue la página y cuando se cambie el tamaño de la ventana
+
 window.addEventListener('resize', adjustStylesForDevice);
 document.addEventListener('DOMContentLoaded', adjustStylesForDevice);
