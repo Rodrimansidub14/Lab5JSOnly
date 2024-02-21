@@ -322,7 +322,7 @@ function adjustStylesForDevice() {
     
  
     if (width <= '1500px') {
-        chatContainer.style.width = '80%';
+        chatContainer.style.width = '95%';
         chatContainer.style.margin = '0';
         chatContainer.style.marginLeft = '5vh';
         chatContainer.style.marginRight = '10vh';
