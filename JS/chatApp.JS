@@ -322,7 +322,7 @@ function adjustStylesForDevice() {
     
  
     if (width <= '1000px') {
-        chatContainer.style.width = '75%';
+        chatContainer.style.width = '50%';
         chatContainer.style.margin = '0';
         chatContainer.style.marginLeft = '10vh';
         chatContainer.style.marginRight = '0vh';
@@ -332,7 +332,7 @@ function adjustStylesForDevice() {
     } else { 
         chatContainer.style.width = '170vh';
         chatContainer.style.margin = '5px';
-        chatContainer.style.marginLeft = '10vh';
+        chatContainer.style.marginLeft = '17vh';
         chatContainer.style.marginRight = '0vh';
         inputContainer.style.width = 'calc(100% - 10px)'; 
         inputContainer.style.left = '5%';
