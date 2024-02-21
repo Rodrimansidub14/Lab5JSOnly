@@ -321,7 +321,7 @@ function adjustStylesForDevice() {
     const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     
     // Ajustar estilos para dispositivos móviles
-    if (width <= 768) { // 768px es un punto de ruptura común para dispositivos móviles
+    if (width <= '768px') { // 768px es un punto de ruptura común para dispositivos móviles
         chatContainer.style.width = '100%';
         chatContainer.style.margin = '0';
         inputContainer.style.width = '100%';
