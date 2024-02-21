@@ -121,7 +121,6 @@ function initChat() {
     });
      
     document.addEventListener('DOMContentLoaded', () => {
-        // ... código previo
         const savedTheme = localStorage.getItem('theme') || 'light';
         const themeToggleInput = document.getElementById('theme-toggle');
         themeToggleInput.checked = savedTheme === 'dark';
