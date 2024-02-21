@@ -1,11 +1,12 @@
 function initChat() {
     const chatContainer = document.createElement("div");
     chatContainer.id = 'chatContainer';
-    chatContainer.style.width = '150vh';
+    chatContainer.style.width = '100vh';
     chatContainer.style.height = '80vh';
     chatContainer.style.boxShadow = '0 10px 8px rgba(0, 0, 0, 0.1)';
-    chatContainer.style.margin = '5px';
-    chatContainer.style.marginLeft = '25vh';
+    chatContainer.style.margin = '15px';
+    chatContainer.style.marginLeft = '35vh';
+    chatContainer.style.marginRight = '35vh';
     chatContainer.style.overflowY = 'auto';
     chatContainer.style.borderRadius = '5px';
     chatContainer.style.border = '1px solid #e0e0e0';
