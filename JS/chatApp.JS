@@ -326,7 +326,7 @@ function adjustChatInterface() {
     chatContainer.style.height = `${viewportHeight - 60}px`; // 60px podría ser la altura de tu input y botón
     chatContainer.style.marginBottom = '60px'; // Asegurar espacio para la caja de entrada
 
-    flexContainer.style.width = '100%';
+    flexContainer.style.width = '75%';
     flexContainer.style.paddingBottom = 'env(safe-area-inset-bottom)'; // Considerar la safe area en dispositivos con notch
 
     input.style.width = 'calc(100% - 100px)'; // 100px podría ser el ancho del botón enviar
