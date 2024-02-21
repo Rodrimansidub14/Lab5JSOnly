@@ -321,7 +321,7 @@ function adjustStylesForDevice() {
     const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     
  
-    if (width <= '1000px') {
+    if (width <= '1500px') {
         chatContainer.style.width = '100%';
         chatContainer.style.margin = '0';
         chatContainer.style.marginLeft = '5vh';
