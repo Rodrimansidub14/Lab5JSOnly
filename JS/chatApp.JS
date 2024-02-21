@@ -1,11 +1,11 @@
 function initChat() {
     const chatContainer = document.createElement("div");
     chatContainer.id = 'chatContainer';
-    
+    chatContainer.style.width = '175vh';
     chatContainer.style.height = '80vh';
     chatContainer.style.boxShadow = '0 10px 8px rgba(0, 0, 0, 0.1)';
-    chatContainer.style.margin = '15px';
-  
+    chatContainer.style.margin = '5px';
+    chatContainer.style.marginLeft = '15vh';
     chatContainer.style.overflowY = 'auto';
     chatContainer.style.borderRadius = '5px';
     chatContainer.style.border = '1px solid #e0e0e0';
@@ -315,24 +315,3 @@ function toggleTheme() {
     const currentTheme = localStorage.getItem('theme');
     applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
 }
-function adjustChatInterface() {
-    const chatContainer = document.getElementById('chatContainer');
-    const input = document.getElementById('messageInput');
-    const sendButton = document.getElementById('sendButton');
-    const flexContainer = document.getElementById('flex-container'); // Asegúrate de asignar este id al contenedor flex
-
-    // Ajustar estilos para dispositivos móviles
-    const viewportHeight = window.innerHeight;
-    chatContainer.style.height = `${viewportHeight - 60}px`; // 60px podría ser la altura de tu input y botón
-    chatContainer.style.marginBottom = '60px'; // Asegurar espacio para la caja de entrada
-
-    flexContainer.style.width = '75%';
-    flexContainer.style.paddingBottom = 'env(safe-area-inset-bottom)'; // Considerar la safe area en dispositivos con notch
-
-    input.style.width = 'calc(100% - 100px)'; // 100px podría ser el ancho del botón enviar
-    sendButton.style.width = '80px'; // Ajustar el ancho del botón enviar según sea necesario
-}
-
-// Llama a esta función al cargar la página y cuando se cambie el tamaño de la ventana
-window.addEventListener('resize', adjustChatInterface);
-document.addEventListener('DOMContentLoaded', adjustChatInterface);
