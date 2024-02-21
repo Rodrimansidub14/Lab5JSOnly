@@ -322,8 +322,10 @@ function adjustStylesForDevice() {
     
  
     if (width <= '768px') {
-        chatContainer.style.width = '50vh';
+        chatContainer.style.width = '350vh';
         chatContainer.style.margin = '0';
+        chatContainer.style.marginLeft = '10vh';
+        chatContainer.style.marginRight = '0vh';
         inputContainer.style.width = '100%';
         inputContainer.style.left = '0';
         inputContainer.style.padding = '10px';
